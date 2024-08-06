@@ -14,9 +14,51 @@ class Despesa{
 
 }
 
+class Bd{
+
+	constructor(){
+
+		this.id = localStorage.getItem('id')
+
+		if(this.id == null){
+
+			localStorage.setItem('id', 0)
+
+
+		}
+
+
+	}
+
+
+
+	getProximoId(){
+
+		let getProximoId = localStorage.getItem('id')
+
+		return parseInt(getProximoId) + 1
+
+	}
+
+
+	gravar(despesa){
+
+		let id  = this.getProximoId()
+
+		
+		localStorage.setItem('id', id)
+		localStorage.setItem(id, JSON.stringify(despesa))
+	}
+
+
+}
+
+let bd = new Bd()
+
 
 
 function cadastrarDespesa(){
+
 	let ano = document.getElementById('ano')
 	let mes = document.getElementById('mes')
 	let dia = document.getElementById('dia')
@@ -26,13 +68,7 @@ function cadastrarDespesa(){
 
 	let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
 
-	gravar(despesa)
-}
-
-function gravar(despesa){
-
-	localStorage.setItem('despesa', JSON.stringify(despesa))
-
+	bd.gravar(despesa)
 
 }
 

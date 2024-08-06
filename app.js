@@ -26,6 +26,13 @@ function cadastrarDespesa(){
 
 	let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
 
-	console.log(despesa)
+	gravar(despesa)
+}
+
+function gravar(despesa){
+
+	localStorage.setItem('despesa', JSON.stringify(despesa))
+
+
 }
 

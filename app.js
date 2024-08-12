@@ -64,6 +64,32 @@ class Bd{
 		localStorage.setItem(id, JSON.stringify(despesa))
 	}
 
+	recuperarTodosRegistros(){
+
+		let id = localStorage.getItem('id')
+		let despesas = []
+
+		//Recuperar todoas as despesas armazendas no localStorage
+		for(let i = 1; i <= id; i++){
+
+			let despesa = JSON.parse(localStorage.getItem(i))
+
+
+			if(despesa != null){
+				despesas.push(despesa)
+			}
+
+			
+			
+
+
+		}
+
+		return despesas
+
+
+	}
+
 
 }
 
@@ -95,6 +121,20 @@ function cadastrarDespesa(){
 
 }
 
+function carregarListaDespesas(){
+
+	let despesas = []
+
+	despesas = bd.recuperarTodosRegistros()
+
+	console.log(despesas)
+
+
+
+}
+
+
+
 function sucessoGravacao(){
 
 	document.getElementById('cabecalho').classList.add('text-success')
@@ -113,4 +153,6 @@ function erroGravacao(){
 	document.getElementById('botaoModal').classList.add('btn-danger')
 	document.getElementById('botaoModal').innerHTML = 'Voltar e corrigir'
 }
+
+
 

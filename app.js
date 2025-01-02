@@ -79,15 +79,14 @@ class Bd{
 				despesas.push(despesa)
 			}
 
-			
-			
-
-
 		}
 
 		return despesas
 
+	}
 
+	pesquisar(despesa){
+		console.log(despesa)
 	}
 
 
@@ -108,6 +107,7 @@ function cadastrarDespesa(){
 
 	let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
 
+
 	if(despesa.validarDados()){
 		bd.gravar(despesa)
 		sucessoGravacao()
@@ -116,6 +116,7 @@ function cadastrarDespesa(){
 		erroGravacao()
 		$('#registraDespesa').modal('show')
 	}
+
 
 	
 
@@ -127,21 +128,75 @@ function carregarListaDespesas(){
 
 	despesas = bd.recuperarTodosRegistros()
 
-	console.log(despesas)
+	//selecionando o elemento tbody
+	let listaDespesas = document.getElementById('lista-despesas')
+
+	//percorrer o array despesas, listando cada despesa de fornma dinamica
+	despesas.forEach(function(d){
+
+		//criando a linha
+
+		let linha = listaDespesas.insertRow()
+
+		//Criando as colunas
+		linha.insertCell(0).innerHTML = `${d.dia}/${d.mes}/${d.ano}`
+		switch(parseInt(d.tipo)){
+			case 1:
+				linha.insertCell(1).innerHTML = "Alimentação"
+				break
+			case 2:
+				linha.insertCell(1).innerHTML = "Educação"
+				break
+			case 3: 
+				linha.insertCell(1).innerHTML = "Lazer"
+				break
+			case 4:
+				linha.insertCell(1).innerHTML = "Saúde"
+				break
+			case 5:
+				linha.insertCell(1).innerHTML = "Transporte"
+		}
+		linha.insertCell(2).innerHTML = d.descricao
+		linha.insertCell(3).innerHTML = d.valor
+	})
 
 
 
 }
 
+function pesquisarDespesa(){
+
+	let dia = document.getElementById("dia").value
+	let mes = document.getElementById("mes").value
+	let ano = document.getElementById("ano").value
+	let tipo = document.getElementById("tipo").value
+	let descricao = document.getElementById("descricao")
+	let valor = document.getElementById("valor")
+
+	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
+
+	bd.pesquisar(despesa)
+}
+
+
 
 
 function sucessoGravacao(){
-
+	
+	document.getElementById('cabecalho').classList.remove('text-danger')
 	document.getElementById('cabecalho').classList.add('text-success')
 	document.getElementById('exampleModalLabel').innerHTML = 'Registro inserido com sucesso'
 	document.getElementById('textoBody').innerHTML = 'Despesa foi cadastrada com sucesso!'
+	document.getElementById('botaoModal').classList.remove('btn-danger')
 	document.getElementById('botaoModal').classList.add('btn-success')
 	document.getElementById('botaoModal').innerHTML = 'Voltar'
+
+	ano.value = ""
+	mes.value = ""
+	dia.value = ""
+	tipo.value = ""
+	descricao.value = ""
+	valor.value = ""
 
 
 }

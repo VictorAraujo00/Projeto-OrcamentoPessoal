@@ -86,7 +86,41 @@ class Bd{
 	}
 
 	pesquisar(despesa){
-		console.log(despesa)
+		let despesasFiltradas = []
+		despesasFiltradas = this.recuperarTodosRegistros()
+		//console.log(despesasFiltradas)
+		//console.log(despesa)
+
+
+		//Ano
+		if(despesa.ano != ''){
+		console.log(despesasFiltradas.filter(d => d.ano == despesa.ano))
+		}
+
+		//mês
+		if(despesa.mes != ''){
+			console.log(despesasFiltradas.filter(d => d.mes == despesa.mes))
+		}
+
+		//dia
+		if(despesa.dia != ''){
+			console.log(despesasFiltradas.filter(d => d.dia == despesa.dia))
+		}
+
+		//tipo
+		if(despesa.tipo != ''){
+			console.log(despesasFiltradas.filter(d => d.tipo == despesa.tipo))
+		}
+
+		//descrição
+		if(despesa.descricao != ''){
+			console.log(despesasFiltradas.filter(d => d.descricao == despesa.descricao))
+		}
+
+		//valor
+		if(despesa.valor != ''){
+			console.log(despesasFiltradas.filter(d => d.valor == despesa.valor))
+		}
 	}
 
 
@@ -170,8 +204,8 @@ function pesquisarDespesa(){
 	let mes = document.getElementById("mes").value
 	let ano = document.getElementById("ano").value
 	let tipo = document.getElementById("tipo").value
-	let descricao = document.getElementById("descricao")
-	let valor = document.getElementById("valor")
+	let descricao = document.getElementById("descricao").value
+	let valor = document.getElementById("valor").value
 
 	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 

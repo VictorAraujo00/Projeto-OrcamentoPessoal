@@ -94,33 +94,35 @@ class Bd{
 
 		//Ano
 		if(despesa.ano != ''){
-		console.log(despesasFiltradas.filter(d => d.ano == despesa.ano))
+		despesasFiltradas = despesasFiltradas.filter(d => d.ano == despesa.ano)
 		}
 
 		//mês
 		if(despesa.mes != ''){
-			console.log(despesasFiltradas.filter(d => d.mes == despesa.mes))
+			despesasFiltradas = despesasFiltradas.filter(d => d.mes == despesa.mes)
 		}
 
 		//dia
 		if(despesa.dia != ''){
-			console.log(despesasFiltradas.filter(d => d.dia == despesa.dia))
+			despesasFiltradas = despesasFiltradas.filter(d => d.dia == despesa.dia)
 		}
 
 		//tipo
 		if(despesa.tipo != ''){
-			console.log(despesasFiltradas.filter(d => d.tipo == despesa.tipo))
+			despesasFiltradas = despesasFiltradas.filter(d => d.tipo == despesa.tipo)
 		}
 
 		//descrição
 		if(despesa.descricao != ''){
-			console.log(despesasFiltradas.filter(d => d.descricao == despesa.descricao))
+			despesasFiltradas = despesasFiltradas.filter(d => d.descricao == despesa.descricao)
 		}
 
 		//valor
 		if(despesa.valor != ''){
-			console.log(despesasFiltradas.filter(d => d.valor == despesa.valor))
+			despesasFiltradas = despesasFiltradas.filter(d => d.valor == despesa.valor)
 		}
+
+		return despesasFiltradas
 	}
 
 
@@ -209,7 +211,40 @@ function pesquisarDespesa(){
 
 	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 
-	bd.pesquisar(despesa)
+	let despesas = bd.pesquisar(despesa)
+
+	let listaDespesas = document.getElementById('lista-despesas')
+	listaDespesas.innerHTML = ''
+
+	despesas.forEach(function(d){
+
+		//criando a linha
+
+		let linha = listaDespesas.insertRow()
+
+		//Criando as colunas
+		linha.insertCell(0).innerHTML = `${d.dia}/${d.mes}/${d.ano}`
+		switch(parseInt(d.tipo)){
+			case 1:
+				linha.insertCell(1).innerHTML = "Alimentação"
+				break
+			case 2:
+				linha.insertCell(1).innerHTML = "Educação"
+				break
+			case 3: 
+				linha.insertCell(1).innerHTML = "Lazer"
+				break
+			case 4:
+				linha.insertCell(1).innerHTML = "Saúde"
+				break
+			case 5:
+				linha.insertCell(1).innerHTML = "Transporte"
+		}
+		linha.insertCell(2).innerHTML = d.descricao
+		linha.insertCell(3).innerHTML = d.valor
+	})
+
+
 }
 
 

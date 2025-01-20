@@ -76,8 +76,11 @@ class Bd{
 
 
 			if(despesa != null){
+				despesa.id = i
 				despesas.push(despesa)
 			}
+
+			
 
 		}
 
@@ -123,6 +126,10 @@ class Bd{
 		}
 
 		return despesasFiltradas
+	}
+
+	remover(id){
+		localStorage.removeItem(id)
 	}
 
 
@@ -194,6 +201,24 @@ function carregarListaDespesas(){
 		}
 		linha.insertCell(2).innerHTML = d.descricao
 		linha.insertCell(3).innerHTML = d.valor
+
+		let btn = document.createElement("button")
+		btn.className = 'btn btn-danger'
+		btn.innerHTML = '<i class="fas fa-times"></i>'
+		btn.id = `id_btn${d.id}` 
+		btn.onclick = function (){
+			let id = this.id.replace('id_btn', "")
+			bd.remover(id)
+			window.location.reload()
+			alert("Despsesa Removida")
+
+			
+		} 
+		linha.insertCell(4).append(btn)
+
+		
+
+
 	})
 
 
@@ -242,6 +267,21 @@ function pesquisarDespesa(){
 		}
 		linha.insertCell(2).innerHTML = d.descricao
 		linha.insertCell(3).innerHTML = d.valor
+
+
+		let btn = document.createElement("button")
+		btn.className = 'btn btn-danger'
+		btn.innerHTML = '<i class="fas fa-times"></i>'
+		btn.id = `id_btn${d.id}` 
+		btn.onclick = function (){
+			let id = this.id.replace('id_btn', "")
+			bd.remover(id)
+			pesquisarDespesa()
+			alert("Despsesa Removida")
+
+			
+		} 
+		linha.insertCell(4).append(btn)
 	})
 
 
